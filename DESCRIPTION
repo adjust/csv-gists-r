@@ -1,0 +1,13 @@
+Package: csvgists
+Type: Package
+Title: CSV gists from R objects
+Version: 0.0.1
+Date: 2016-08-11
+Author: Nikola Chochkov
+Maintainer: Nikola Chochkov <nikola@adjust.com>
+Description: Facilitates maintaining CSV on gist.github.com directly from R objects
+License: MIT License
+Depends:
+    httr
+Collate:
+    'client.R'
