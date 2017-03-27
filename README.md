@@ -23,12 +23,17 @@ under `~/.gist-vim`. It expects the format:
 token 45cdef12323ab
 ```
 
+NOTE: Make sure the GitHub token that you use has permissions to create gists.
+You can edit these permissions from your Authentication Settings on GitHub.
+
 ### Usage
 
 The package has only one function called `gist.csv`. It takes a `data.table` (or
 `data.frame`)
 
 ```R
+library(csvgists)
+
 resp <- gist.csv(data.frame(a=1:10, b=letters[1:10]), description='my gist')
 
 # To update an existing gist - give its id:
