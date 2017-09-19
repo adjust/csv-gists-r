@@ -8,6 +8,7 @@ Maintainer: Nikola Chochkov <nikola@adjust.com>
 Description: Facilitates maintaining CSV on gist.github.com directly from R objects
 License: MIT License
 Depends:
-    httr
+    httr,data.table
 Collate:
     'client.R'
+RoxygenNote: 6.0.1

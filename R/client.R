@@ -1,21 +1,31 @@
 .GITHUB.HOST <- 'https://api.github.com/gists'
 .AUTHORIZATION.HEADER <- 'token %s'
 
-library(data.table)
-library(httr)
-
 #' Creates new gist on GitHub using the Authentication token found in
 #' ~/.gist-vim file. This is compliant with the Vim Gist plugin so if you're
 #' already using that one, you'll be set to use the R package too. By default
 #' gists created here are private, but this and description could be set. If you
 #' give a gist id as argument to the function, it will try to update an existing
 #' gist instead of creating a new one.
+#'
+#' @param public should the gist be made public or secrete on http://gist.github.com
+#' @param description the description for the new gist.
+#' @param id if left NULL a new gist will be created. If given a gist ID string,
+#' an existing gist will be updated.
+#' @param csv.writer this takes a function as a value e.g. write.csv or write.csv2. See README.md.
+#' @param raw.names if this is set to TRUE, then raw.names will be written to
+#' the output.
+#' @param ... additional params passed on to csv.writer function.
+#'
 #' @export
-gist.csv <- function(DT, public=FALSE, description='', id=NULL) {
+gist.csv <- function(DT, public=FALSE, description='', id=NULL, csv.writer=write.csv, row.names=FALSE, ...) {
+  if (! (identical(csv.writer, write.csv) | identical(csv.writer, write.csv2)))
+    stop("csv.writer parameter must be function write.csv or write.csv2")
+
   str <- ''
 
   tc <- textConnection('str', 'w', local=TRUE)
-  write.csv(DT, file=tc, row.names=FALSE)
+  csv.writer(DT, file=tc, row.names=row.names, ...)
   close(tc)
 
   req <- list(description=description,
