@@ -24,7 +24,8 @@ token 45cdef12323ab
 ```
 
 NOTE: Make sure the GitHub token that you use has permissions to create gists.
-You can edit these permissions from your Authentication Settings on GitHub.
+You can edit these permissions from your Authentication Settings on GitHub. You
+can manage your tokens from https://github.com/settings/tokens.
 
 ### Usage
 
@@ -45,6 +46,16 @@ the HTML URL for you ready to share with others.
 
 NOTE: the default visibility of the gists is `private`, but you can set this to
 public too. See `?gist.csv` for usage details.
+
+#### Excel compatibility
+
+Some Excel setups require `;` as a CSV separator and other custom settings. R takes care of that by
+having a standard `write.csv2` function. `csvgists` allows you to use a custom `csv.writer` function
+by passing a gist.csv argument.
+
+```R
+gist <- gist.csv(DT, csv.writer=write.csv2)
+```
 
 ### Contribution
 

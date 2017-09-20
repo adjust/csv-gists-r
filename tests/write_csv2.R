@@ -1,0 +1,5 @@
+library(data.table)
+library(csvgists)
+DT <- data.table(1:10, letters[1:10])
+gist <- gist.csv(DT, csv.writer=write.csv2)
+write(print(gist$files$file1.csv$content), file="tests/received.csv.tmp")
