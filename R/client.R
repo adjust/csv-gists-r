@@ -13,12 +13,12 @@
 #' @param id if left NULL a new gist will be created. If given a gist ID string,
 #' an existing gist will be updated.
 #' @param csv.writer this takes a function as a value e.g. write.csv or write.csv2. See README.md.
-#' @param raw.names if this is set to TRUE, then raw.names will be written to
+#' @param row.names if this is set to TRUE, then row.names will be written to
 #' the output.
 #' @param ... additional params passed on to csv.writer function.
-#'
+#' @param file.name this allows you to name the file in the gist, default value is 'file1.csv'
 #' @export
-gist.csv <- function(DT, public=FALSE, description='', id=NULL, csv.writer=write.csv, row.names=FALSE, ...) {
+gist.csv <- function(DT, public=FALSE, description='', id=NULL, csv.writer=write.csv, row.names=FALSE, file.name = 'file1.csv', ...) {
   if (! (identical(csv.writer, write.csv) | identical(csv.writer, write.csv2)))
     stop("csv.writer parameter must be function write.csv or write.csv2")
 
@@ -28,9 +28,15 @@ gist.csv <- function(DT, public=FALSE, description='', id=NULL, csv.writer=write
   csv.writer(DT, file=tc, row.names=row.names, ...)
   close(tc)
 
+  content <-list(content=paste(as.character(str), collapse='\n'))
+  file <- list()
+  key <- file.name
+  file[[key]] <- content
+
   req <- list(description=description,
               public=public,
-              files=list(file1.csv=list(content=paste(as.character(str), collapse='\n'))))
+              files=file)
+
 
   user.token <- read.table("~/.gist-vim", stringsAsFactors=FALSE)$V2[1]
   if (is.null(user.token)) stop('You need a file ~/.gist-vim with structure `token 123123uhksjdfhsdlfj` with your GitHub token')

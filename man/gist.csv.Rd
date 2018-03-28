@@ -10,7 +10,7 @@ give a gist id as argument to the function, it will try to update an existing
 gist instead of creating a new one.}
 \usage{
 gist.csv(DT, public = FALSE, description = "", id = NULL,
-  csv.writer = write.csv, row.names = FALSE, ...)
+  csv.writer = write.csv, row.names = FALSE, file.name = "file1.csv", ...)
 }
 \arguments{
 \item{public}{should the gist be made public or secrete on http://gist.github.com}
@@ -22,10 +22,12 @@ an existing gist will be updated.}
 
 \item{csv.writer}{this takes a function as a value e.g. write.csv or write.csv2. See README.md.}
 
-\item{...}{additional params passed on to csv.writer function.}
-
-\item{raw.names}{if this is set to TRUE, then raw.names will be written to
+\item{row.names}{if this is set to TRUE, then row.names will be written to
 the output.}
+
+\item{file.name}{this allows you to name the file in the gist, default value is 'file1.csv'}
+
+\item{...}{additional params passed on to csv.writer function.}
 }
 \description{
 Creates new gist on GitHub using the Authentication token found in
